@@ -31,25 +31,6 @@ namespace WebApi.IdenityServer.Test
         {
             services.AddControllers();
 
-            //accepts any access token issued by identity server
-             // services.AddAuthentication(config =>
-             //     {
-             //         config.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-             //         config.DefaultScheme = "Bearer";
-             //         config.DefaultChallengeScheme = "Bearer";
-             //     })
-             //     .AddJwtBearer("Bearer", options =>
-             //     {
-             //         options.Authority = "https://localhost:5005";
-             //      
-             //         options.TokenValidationParameters = new TokenValidationParameters
-             //         {
-             //             ValidateAudience = false
-             //         };
-             //     });
-            
-           // adds an authorization policy to make sure the token is for scope 'api1'
-           
             services.AddAuthentication(config =>
                 {
                     config.DefaultScheme = "Cookies";
@@ -85,7 +66,6 @@ namespace WebApi.IdenityServer.Test
             
                 });
             
-            
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("ApiScope", policy =>
@@ -95,16 +75,14 @@ namespace WebApi.IdenityServer.Test
                     policy.RequireClaim("roles", "roles");
                 });
             });
-
             
             services.AddSwaggerGen(options =>
             {
-                
                 options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
                 {
                     Type = SecuritySchemeType.OAuth2,
                     BearerFormat = "JWT",
-                    In = ParameterLocation.Cookie,
+                    In = ParameterLocation.Header,
                     OpenIdConnectUrl = new Uri($"https://localhost:5005/.well-known/openid-configuration"),
                     Flows = new OpenApiOAuthFlows
                     {
@@ -121,28 +99,6 @@ namespace WebApi.IdenityServer.Test
                 });
                 
                 options.OperationFilter<SwaggerAuthenticationRequirementsOperationFilter>();
-
-                // options.AddSecurityDefinition("My Security Definition", new OpenApiSecurityScheme
-                // {
-                //     Type = SecuritySchemeType.OAuth2,
-                //     BearerFormat = "JWT",
-                //     In = ParameterLocation.Header,
-                //     OpenIdConnectUrl = new Uri($"https://localhost:5005/.well-known/openid-configuration"),
-                //     Flows = new OpenApiOAuthFlows
-                //     {
-                //         ClientCredentials = new OpenApiOAuthFlow
-                //         {
-                //             
-                //             AuthorizationUrl = new Uri($"https://localhost:5005/connect/authorize"),
-                //             TokenUrl = new Uri($"https://localhost:5005/connect/token"),
-                //             Scopes = new Dictionary<string, string>
-                //             {
-                //                 { "ApiOne", "the right to write" },
-                //             }
-                //         }
-                //     }
-                // });
-
             });
         }
 
@@ -155,7 +111,6 @@ namespace WebApi.IdenityServer.Test
                 
                 app.UseSwaggerUI(options => {
                     options.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-
                     options.OAuthClientId("client_id_swagger_test");
                     options.OAuthUsePkce();
                 });
