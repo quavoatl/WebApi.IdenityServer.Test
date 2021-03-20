@@ -29,6 +29,7 @@ namespace WebApi.IdenityServer.Test
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpClient();
             services.AddControllers();
 
             services.AddAuthentication(config =>
@@ -40,7 +41,8 @@ namespace WebApi.IdenityServer.Test
                 .AddJwtBearer("Bearer", options =>
                 {
                     options.Authority = "https://localhost:5005";
-                  
+                    options.Audience = "client_id_swagger_test";
+
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateAudience = false
@@ -54,28 +56,14 @@ namespace WebApi.IdenityServer.Test
                     config.ClientSecret = "secret";
                     config.SaveTokens = true;
                     config.ResponseType = "code";
-            
+
                     config.GetClaimsFromUserInfoEndpoint = true;
-            
+
                     config.Scope.Add(ClaimsHelpers.ROLES_KEY);
-                    config.ClaimActions.MapUniqueJsonKey(ClaimsHelpers.ROLE,
-                        ClaimsHelpers.ROLE,
-                        ClaimsHelpers.ROLE);
+                    config.ClaimActions.MapUniqueJsonKey(ClaimsHelpers.ROLE, ClaimsHelpers.ROLE, ClaimsHelpers.ROLE);
                     config.TokenValidationParameters.RoleClaimType = ClaimsHelpers.ROLE;
-                    //config.TokenValidationParameters.NameClaimType = "name";
-            
                 });
-            
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("ApiScope", policy =>
-                {
-                    policy.RequireAuthenticatedUser();
-                    policy.RequireClaim("scope", "ApiOne");
-                    policy.RequireClaim("roles", "roles");
-                });
-            });
-            
+
             services.AddSwaggerGen(options =>
             {
                 options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
@@ -92,12 +80,12 @@ namespace WebApi.IdenityServer.Test
                             TokenUrl = new Uri("https://localhost:5005/connect/token"),
                             Scopes = new Dictionary<string, string>
                             {
-                                {"ApiOne", "the right to write"},
+                                {"ApiOne", "Api One Resource - mare secret"},
                             }
                         }
                     }
                 });
-                
+
                 options.OperationFilter<SwaggerAuthenticationRequirementsOperationFilter>();
             });
         }
@@ -108,8 +96,8 @@ namespace WebApi.IdenityServer.Test
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                
-                app.UseSwaggerUI(options => {
+                app.UseSwaggerUI(options =>
+                {
                     options.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
                     options.OAuthClientId("client_id_swagger_test");
                     options.OAuthUsePkce();

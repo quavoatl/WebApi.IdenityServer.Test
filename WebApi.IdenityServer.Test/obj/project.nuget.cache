@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "sloODtYj7VYkN2SKDP36nc37aO1RPe4trYAXsQriuvXPd5Q8TGacckvBzTNqeTVW9TlsIkBNMxgIn6ua3QGMuQ==",
+  "dgSpecHash": "ZaJO46lX/gKRScuJ+Fa75PKvtJ5JkHBpe6/JyJ3ulPVtRUGW5kTYZXYS7R+9v5oxxsnONoN/fBsLkpDIFm7Z6g==",
   "success": true,
   "projectFilePath": "C:\\Users\\seantal\\source\\repos\\WebApi.IdenityServer.Test\\WebApi.IdenityServer.Test\\WebApi.IdenityServer.Test\\WebApi.IdenityServer.Test.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\seantal\\.nuget\\packages\\identitymodel\\5.0.1\\identitymodel.5.0.1.nupkg.sha512",
     "C:\\Users\\seantal\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\5.0.4\\microsoft.aspnetcore.authentication.jwtbearer.5.0.4.nupkg.sha512",
     "C:\\Users\\seantal\\.nuget\\packages\\microsoft.aspnetcore.authentication.openidconnect\\5.0.4\\microsoft.aspnetcore.authentication.openidconnect.5.0.4.nupkg.sha512",
     "C:\\Users\\seantal\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
@@ -19,7 +20,9 @@
     "C:\\Users\\seantal\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\5.6.3\\swashbuckle.aspnetcore.swaggergen.5.6.3.nupkg.sha512",
     "C:\\Users\\seantal\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\5.6.3\\swashbuckle.aspnetcore.swaggerui.5.6.3.nupkg.sha512",
     "C:\\Users\\seantal\\.nuget\\packages\\system.identitymodel.tokens.jwt\\6.7.1\\system.identitymodel.tokens.jwt.6.7.1.nupkg.sha512",
-    "C:\\Users\\seantal\\.nuget\\packages\\system.security.cryptography.cng\\4.5.0\\system.security.cryptography.cng.4.5.0.nupkg.sha512"
+    "C:\\Users\\seantal\\.nuget\\packages\\system.security.cryptography.cng\\4.5.0\\system.security.cryptography.cng.4.5.0.nupkg.sha512",
+    "C:\\Users\\seantal\\.nuget\\packages\\system.text.encodings.web\\5.0.0\\system.text.encodings.web.5.0.0.nupkg.sha512",
+    "C:\\Users\\seantal\\.nuget\\packages\\system.text.json\\5.0.0\\system.text.json.5.0.0.nupkg.sha512"
   ],
   "logs": []
 }

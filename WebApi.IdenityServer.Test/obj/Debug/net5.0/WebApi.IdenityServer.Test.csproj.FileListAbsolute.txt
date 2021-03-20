@@ -35,3 +35,4 @@ C:\Users\seantal\source\repos\WebApi.IdenityServer.Test\WebApi.IdenityServer.Tes
 C:\Users\seantal\source\repos\WebApi.IdenityServer.Test\WebApi.IdenityServer.Test\WebApi.IdenityServer.Test\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\seantal\source\repos\WebApi.IdenityServer.Test\WebApi.IdenityServer.Test\WebApi.IdenityServer.Test\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll
 C:\Users\seantal\source\repos\WebApi.IdenityServer.Test\WebApi.IdenityServer.Test\WebApi.IdenityServer.Test\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\seantal\source\repos\WebApi.IdenityServer.Test\WebApi.IdenityServer.Test\WebApi.IdenityServer.Test\bin\Debug\net5.0\IdentityModel.dll

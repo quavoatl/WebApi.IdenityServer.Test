@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
+using IdentityModel.Client;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
@@ -18,6 +20,14 @@ namespace WebApi.IdenityServer.Test.Controllers
     [Route("/api/weather")]
     public class WeatherForecastController : ControllerBase
     {
+        private readonly IHttpClientFactory _clientFactory;
+
+        public WeatherForecastController(IHttpClientFactory clientFactory, ILogger<WeatherForecastController> logger)
+        {
+            _clientFactory = clientFactory;
+            _logger = logger;
+        }
+
         private static readonly string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
@@ -25,28 +35,19 @@ namespace WebApi.IdenityServer.Test.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
-        {
-            _logger = logger;
-        }
-
         [HttpGet]
-        public async Task<IEnumerable<WeatherForecast>> Get()
+        public async Task<IActionResult> Get()
         {
-            var rng = new Random();
-            var accessToken = await HttpContext.GetTokenAsync("access_token");
-
             var claims = User.Claims.ToList();
-            var _accessToken = new JwtSecurityTokenHandler().ReadJwtToken(accessToken);
             
-            
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-                {
-                    Date = DateTime.Now.AddDays(index),
-                    TemperatureC = rng.Next(-20, 55),
-                    Summary = Summaries[rng.Next(Summaries.Length)]
-                })
-                .ToArray();
+            var apiClient = _clientFactory.CreateClient();
+            apiClient.SetBearerToken(await HttpContext.GetTokenAsync("access_token"));
+
+            var responseMessage = await apiClient.GetAsync("https://localhost:5010/secret");
+            var responseContent = await responseMessage.Content.ReadAsStringAsync();
+
+            return Ok(new { value = responseContent });
+
         }
     }
 }
